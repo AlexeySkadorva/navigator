@@ -1,9 +1,9 @@
 package com.itrex.navigator.controller;
 
-import com.itrex.navigator.controller.domain.RouteRequest;
-import com.itrex.navigator.controller.domain.RouteResponse;
-import com.itrex.navigator.controller.domain.RouteSegmentRequest;
-import com.itrex.navigator.controller.domain.RouteSegmentResponse;
+import com.itrex.navigator.domain.RouteRequest;
+import com.itrex.navigator.domain.RouteResponse;
+import com.itrex.navigator.domain.RouteSegmentRequest;
+import com.itrex.navigator.domain.RouteSegmentResponse;
 import com.itrex.navigator.model.City;
 import com.itrex.navigator.model.Route;
 import com.itrex.navigator.model.RouteSegment;

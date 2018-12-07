@@ -1,4 +1,4 @@
-package com.itrex.navigator.controller.domain;
+package com.itrex.navigator.domain;
 
 import com.itrex.navigator.model.Route;
 import lombok.AllArgsConstructor;
