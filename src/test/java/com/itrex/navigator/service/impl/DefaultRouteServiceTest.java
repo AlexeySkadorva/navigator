@@ -1,6 +1,5 @@
 package com.itrex.navigator.service.impl;
 
-import com.itrex.navigator.exception.CityNotExistsException;
 import com.itrex.navigator.exception.RouteNotExistsException;
 import com.itrex.navigator.exception.ValidationException;
 import com.itrex.navigator.model.City;
@@ -164,7 +163,7 @@ public class DefaultRouteServiceTest {
         routeService.getRoutes(departure, destination);
     }
 
-    @Test(expected = CityNotExistsException.class)
+    @Test(expected = ValidationException.class)
     public void getRoutesWithNotExistsDepartureCityTest() {
         SimpleDirectedWeightedGraph<City, DefaultWeightedEdge> graph = new SimpleDirectedWeightedGraph<>(DefaultWeightedEdge.class);
 
@@ -177,7 +176,7 @@ public class DefaultRouteServiceTest {
         routeService.getRoutes(departure, destination);
     }
 
-    @Test(expected = CityNotExistsException.class)
+    @Test(expected = ValidationException.class)
     public void getRoutesWithNotExistsDestinationCityTest() {
         SimpleDirectedWeightedGraph<City, DefaultWeightedEdge> graph = new SimpleDirectedWeightedGraph<>(DefaultWeightedEdge.class);
 

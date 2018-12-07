@@ -1,6 +1,5 @@
 package com.itrex.navigator.validator;
 
-import com.itrex.navigator.exception.CityNotExistsException;
 import com.itrex.navigator.exception.ValidationException;
 import com.itrex.navigator.model.City;
 import com.itrex.navigator.model.RouteSegment;
@@ -29,7 +28,7 @@ public class RouteValidator implements Validator {
 
     private void validateCity(Graph<City, DefaultWeightedEdge> citiesGraph, City city) {
         if (!citiesGraph.containsVertex(city)) {
-            throw new CityNotExistsException("City " + city.getName() + " not exists in route list");
+            throw new ValidationException("City " + city.getName() + " not exists in route list");
         }
     }
 
