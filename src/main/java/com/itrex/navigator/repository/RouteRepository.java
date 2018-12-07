@@ -1,12 +1,13 @@
 package com.itrex.navigator.repository;
 
 import com.itrex.navigator.model.City;
+import com.itrex.navigator.model.RouteSegment;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 
 public interface RouteRepository {
 
-    void save(City departure, City destination, int distance);
+    RouteSegment save(RouteSegment routeSegment);
 
     Graph<City, DefaultWeightedEdge> getAll();
 

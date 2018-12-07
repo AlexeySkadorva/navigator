@@ -3,6 +3,7 @@ package com.itrex.navigator.service.impl;
 import com.itrex.navigator.exception.RouteNotExistsException;
 import com.itrex.navigator.model.City;
 import com.itrex.navigator.model.Route;
+import com.itrex.navigator.model.RouteSegment;
 import com.itrex.navigator.repository.RouteRepository;
 import com.itrex.navigator.service.RouteService;
 import com.itrex.navigator.validator.RouteValidator;
@@ -34,10 +35,10 @@ public class DefaultRouteService implements RouteService {
     }
 
     @Override
-    public void save(City departure, City destination, int distance) {
-        validator.validateRoute(departure, destination, distance);
+    public RouteSegment save(RouteSegment routeSegment) {
+        validator.validateRouteSegment(routeSegment);
 
-        routeRepository.save(departure, destination, distance);
+        return routeRepository.save(routeSegment);
     }
 
     @Override
@@ -49,8 +50,8 @@ public class DefaultRouteService implements RouteService {
         KShortestSimplePaths<City, DefaultWeightedEdge> paths = new KShortestSimplePaths(new AsUndirectedGraph(citiesGraph));
         List<GraphPath<City, DefaultWeightedEdge>> allPathsBetweenCities = paths.getPaths(departure, destination, COUNT_OF_FIRST_ROUTES);
 
-        if(CollectionUtils.isEmpty(allPathsBetweenCities)) {
-            throw new RouteNotExistsException("Not found route between " + departure.getName() + " and " + destination.getName() + " cities");
+        if (CollectionUtils.isEmpty(allPathsBetweenCities)) {
+            throw new RouteNotExistsException("Route not exists between " + departure.getName() + " and " + destination.getName() + " cities");
         }
 
         return allPathsBetweenCities.stream()

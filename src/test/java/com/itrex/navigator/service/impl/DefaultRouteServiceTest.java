@@ -5,6 +5,7 @@ import com.itrex.navigator.exception.RouteNotExistsException;
 import com.itrex.navigator.exception.ValidationException;
 import com.itrex.navigator.model.City;
 import com.itrex.navigator.model.Route;
+import com.itrex.navigator.model.RouteSegment;
 import com.itrex.navigator.repository.RouteRepository;
 import com.itrex.navigator.service.RouteService;
 import org.jgrapht.graph.DefaultWeightedEdge;
@@ -22,14 +23,14 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DefaultRouteServiceTest {
 
     private RouteService routeService;
 
-    @Mock private RouteRepository routeRepository;
+    @Mock
+    private RouteRepository routeRepository;
 
     @Before
     public void setUp() {
@@ -38,31 +39,27 @@ public class DefaultRouteServiceTest {
 
     @Test
     public void saveTest() {
-        City departure = new City("A");
-        City destination = new City("B");
-        int distance = 10;
+        RouteSegment routeSegment = new RouteSegment(new City("A"), new City("B"), 10);
 
-        doNothing().when(routeRepository).save(departure, destination, distance);
+        given(routeRepository.save(routeSegment)).willReturn(routeSegment);
 
-        routeService.save(departure, destination, distance);
+        RouteSegment actualRouteSegment = routeService.save(routeSegment);
+
+        assertEquals(routeSegment, actualRouteSegment);
     }
 
     @Test(expected = ValidationException.class)
     public void saveWithSameCitiesTest() {
-        City departure = new City("A");
-        City destination = new City("A");
-        int distance = 10;
+        RouteSegment routeSegment = new RouteSegment(new City("A"), new City("A"), 10);
 
-        routeService.save(departure, destination, distance);
+        routeService.save(routeSegment);
     }
 
     @Test(expected = ValidationException.class)
     public void saveWithNegativeDistanceTest() {
-        City departure = new City("A");
-        City destination = new City("B");
-        int distance = -10;
+        RouteSegment routeSegment = new RouteSegment(new City("A"), new City("B"), -10);
 
-        routeService.save(departure, destination, distance);
+        routeService.save(routeSegment);
     }
 
     @Test
@@ -194,11 +191,11 @@ public class DefaultRouteServiceTest {
 
     private void addRoute(SimpleDirectedWeightedGraph<City, DefaultWeightedEdge> graph, City departure,
                           City destination, int distance) {
-        if(!graph.containsVertex(departure)) {
+        if (!graph.containsVertex(departure)) {
             graph.addVertex(departure);
         }
 
-        if(!graph.containsVertex(destination)) {
+        if (!graph.containsVertex(destination)) {
             graph.addVertex(destination);
         }
 

@@ -1,6 +1,7 @@
 package com.itrex.navigator.repository.impl;
 
 import com.itrex.navigator.model.City;
+import com.itrex.navigator.model.RouteSegment;
 import com.itrex.navigator.repository.RouteRepository;
 import org.jgrapht.Graph;
 import org.jgrapht.graph.DefaultWeightedEdge;
@@ -26,14 +27,16 @@ public class DefaultRouteRepositoryTest {
         City departure = new City("A");
         City destination = new City("B");
         int distance = 10;
+        RouteSegment routeSegment = new RouteSegment(departure, destination, distance);
 
-        routeRepository.save(departure, destination, distance);
+        RouteSegment actualRouteSegment = routeRepository.save(routeSegment);
 
         Graph<City, DefaultWeightedEdge> citiesGraph = routeRepository.getAll();
 
         Set<DefaultWeightedEdge> allEdges = citiesGraph.getAllEdges(departure, destination);
 
         assertEquals(allEdges.size(), 1);
+        assertEquals(routeSegment, actualRouteSegment);
     }
 
     @Test
@@ -41,15 +44,17 @@ public class DefaultRouteRepositoryTest {
         City departure = new City("A");
         City destination = new City("B");
         int distance = 10;
+        RouteSegment routeSegment = new RouteSegment(departure, destination, distance);
 
-        routeRepository.save(departure, destination, distance);
-        routeRepository.save(departure, destination, distance);
+        RouteSegment actualRouteSegment = routeRepository.save(routeSegment);
+        routeRepository.save(routeSegment);
 
         Graph<City, DefaultWeightedEdge> citiesGraph = routeRepository.getAll();
 
         Set<DefaultWeightedEdge> allEdges = citiesGraph.getAllEdges(departure, destination);
 
         assertEquals(allEdges.size(), 1);
+        assertEquals(routeSegment, actualRouteSegment);
     }
 
     @Test
@@ -57,19 +62,22 @@ public class DefaultRouteRepositoryTest {
         City departure = new City("A");
         City destination = new City("B");
         int distance = 5;
+        RouteSegment routeSegment = new RouteSegment(departure, destination, distance);
+        RouteSegment inverseRouteSegment = new RouteSegment(destination, departure, distance);
 
-        routeRepository.save(departure, destination, distance);
-        routeRepository.save(destination, departure, distance);
+        RouteSegment actualRouteSegment = routeRepository.save(routeSegment);
+        routeRepository.save(inverseRouteSegment);
 
         Graph<City, DefaultWeightedEdge> citiesGraph = routeRepository.getAll();
 
         Set<DefaultWeightedEdge> allEdges = citiesGraph.getAllEdges(departure, destination);
 
         assertEquals(allEdges.size(), 1);
+        assertEquals(routeSegment, actualRouteSegment);
     }
 
     @Test
-    public void getAll() {
+    public void getAllTest() {
         Graph<City, DefaultWeightedEdge> allRoutes = routeRepository.getAll();
 
         assertNotNull(allRoutes);
