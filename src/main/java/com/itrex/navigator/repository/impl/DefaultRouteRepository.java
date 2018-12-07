@@ -17,7 +17,7 @@ public class DefaultRouteRepository implements RouteRepository {
 
 
     @Override
-    public RouteSegment save(RouteSegment routeSegment) {
+    public synchronized RouteSegment save(RouteSegment routeSegment) {
         City departure = routeSegment.getDeparture();
         City destination = routeSegment.getDestination();
 
