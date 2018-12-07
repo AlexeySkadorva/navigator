@@ -9,7 +9,7 @@ import org.jgrapht.graph.DefaultWeightedEdge;
 
 public class RouteValidator implements Validator {
 
-    private static final int MINIMAL_DISTANCE_VALUE = 0;
+    private static final int MINIMAL_DISTANCE_VALUE = 1;
 
 
     public void validateRouteSegment(RouteSegment routeSegment) {
@@ -17,7 +17,7 @@ public class RouteValidator implements Validator {
             throw new ValidationException("Departure and destination is the same city");
         }
 
-        if (routeSegment.getDistance() <= MINIMAL_DISTANCE_VALUE) {
+        if (routeSegment.getDistance() < MINIMAL_DISTANCE_VALUE) {
             throw new ValidationException("Distance must be greater than 0");
         }
     }
