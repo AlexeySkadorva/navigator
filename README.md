@@ -18,7 +18,9 @@ Also, unit tests were added to check the logic for calculating routes.
 
 API documentation:
 1) Save route segment 
+
    PUT: api/route
+   
    Body example: 
       {
           "departure": {
@@ -30,4 +32,5 @@ API documentation:
           "distance": 10
       }
 2) Get route between cities
+
    GET: /api/route?departure=A&destination=B
