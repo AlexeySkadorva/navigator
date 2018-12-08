@@ -11,7 +11,6 @@ import com.itrex.navigator.validator.Validator;
 import org.jgrapht.Graph;
 import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.KShortestSimplePaths;
-import org.jgrapht.graph.AsUndirectedGraph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -47,7 +46,7 @@ public class DefaultRouteService implements RouteService {
 
         validator.validateCities(citiesGraph, departure, destination);
 
-        KShortestSimplePaths<City, DefaultWeightedEdge> paths = new KShortestSimplePaths(new AsUndirectedGraph(citiesGraph));
+        KShortestSimplePaths<City, DefaultWeightedEdge> paths = new KShortestSimplePaths(citiesGraph);
         List<GraphPath<City, DefaultWeightedEdge>> allPathsBetweenCities = paths.getPaths(departure, destination, COUNT_OF_FIRST_ROUTES);
 
         if (CollectionUtils.isEmpty(allPathsBetweenCities)) {

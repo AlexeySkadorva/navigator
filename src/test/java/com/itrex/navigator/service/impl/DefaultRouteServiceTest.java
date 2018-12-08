@@ -7,6 +7,7 @@ import com.itrex.navigator.model.Route;
 import com.itrex.navigator.model.RouteSegment;
 import com.itrex.navigator.repository.RouteRepository;
 import com.itrex.navigator.service.RouteService;
+import org.jgrapht.graph.AsUndirectedGraph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 import org.junit.Before;
@@ -73,7 +74,7 @@ public class DefaultRouteServiceTest {
 
         List<Route> expectedRoutes = Collections.singletonList(new Route(Arrays.asList(departure, destination), distance));
 
-        given(routeRepository.getAll()).willReturn(graph);
+        given(routeRepository.getAll()).willReturn(new AsUndirectedGraph<>(graph));
 
         List<Route> actualRoutes = routeService.getRoutes(departure, destination);
 
@@ -91,7 +92,7 @@ public class DefaultRouteServiceTest {
 
         List<Route> expectedRoutes = Collections.singletonList(new Route(Arrays.asList(departure, destination), distance));
 
-        given(routeRepository.getAll()).willReturn(graph);
+        given(routeRepository.getAll()).willReturn(new AsUndirectedGraph<>(graph));
 
         List<Route> actualRoutes = routeService.getRoutes(departure, destination);
 
@@ -115,7 +116,7 @@ public class DefaultRouteServiceTest {
 
         List<Route> expectedRoutes = Collections.singletonList(new Route(Arrays.asList(departure, cityB, cityC, destination), distance * 3));
 
-        given(routeRepository.getAll()).willReturn(graph);
+        given(routeRepository.getAll()).willReturn(new AsUndirectedGraph<>(graph));
 
         List<Route> actualRoutes = routeService.getRoutes(departure, destination);
 
@@ -142,7 +143,7 @@ public class DefaultRouteServiceTest {
         expectedRoutes.add(new Route(Arrays.asList(departure, cityB, destination), distance * 2));
         expectedRoutes.add(new Route(Arrays.asList(departure, cityC, destination), distance * 2));
 
-        given(routeRepository.getAll()).willReturn(graph);
+        given(routeRepository.getAll()).willReturn(new AsUndirectedGraph<>(graph));
 
         List<Route> actualRoutes = routeService.getRoutes(departure, destination);
 
@@ -158,7 +159,7 @@ public class DefaultRouteServiceTest {
         graph.addVertex(departure);
         graph.addVertex(destination);
 
-        given(routeRepository.getAll()).willReturn(graph);
+        given(routeRepository.getAll()).willReturn(new AsUndirectedGraph<>(graph));
 
         routeService.getRoutes(departure, destination);
     }
@@ -171,7 +172,7 @@ public class DefaultRouteServiceTest {
         City destination = new City("D");
         graph.addVertex(destination);
 
-        given(routeRepository.getAll()).willReturn(graph);
+        given(routeRepository.getAll()).willReturn(new AsUndirectedGraph<>(graph));
 
         routeService.getRoutes(departure, destination);
     }
@@ -184,7 +185,7 @@ public class DefaultRouteServiceTest {
         City destination = new City("B");
         graph.addVertex(departure);
 
-        given(routeRepository.getAll()).willReturn(graph);
+        given(routeRepository.getAll()).willReturn(new AsUndirectedGraph<>(graph));
 
         routeService.getRoutes(departure, destination);
     }

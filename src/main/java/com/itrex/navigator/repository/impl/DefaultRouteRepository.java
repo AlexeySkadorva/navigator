@@ -4,6 +4,7 @@ import com.itrex.navigator.model.City;
 import com.itrex.navigator.model.RouteSegment;
 import com.itrex.navigator.repository.RouteRepository;
 import org.jgrapht.Graph;
+import org.jgrapht.graph.AsUndirectedGraph;
 import org.jgrapht.graph.DefaultWeightedEdge;
 import org.jgrapht.graph.SimpleDirectedWeightedGraph;
 import org.springframework.stereotype.Repository;
@@ -33,7 +34,7 @@ public class DefaultRouteRepository implements RouteRepository {
 
     @Override
     public Graph<City, DefaultWeightedEdge> getAll() {
-        return graph;
+        return new AsUndirectedGraph(graph);
     }
 
     private void addCity(City city) {
