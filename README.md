@@ -15,3 +15,22 @@ Exceptions were also added in cases when:
 
 All application logic was divided into 3 layers: controller, service, repository.
 Also, unit tests were added to check the logic for calculating routes.
+
+API documentation:
+1) Save route segment 
+
+   PUT: api/route
+   
+   Body example: 
+      {
+          "departure": {
+              "name": "A"
+          },
+          "destination": {
+              "name": "B"
+          },
+          "distance": 10
+      }
+2) Get route between cities
+
+   GET: /api/route?departure=A&destination=B

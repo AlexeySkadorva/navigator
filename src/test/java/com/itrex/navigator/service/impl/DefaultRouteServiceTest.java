@@ -130,7 +130,6 @@ public class DefaultRouteServiceTest {
         City departure = new City("A");
         City cityB = new City("B");
         City cityC = new City("C");
-        City cityM = new City("M");
         City destination = new City("D");
 
         int distance = 10;
@@ -205,5 +204,3 @@ public class DefaultRouteServiceTest {
     }
 
 }
-
-
