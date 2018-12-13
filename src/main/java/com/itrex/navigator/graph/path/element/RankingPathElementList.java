@@ -83,8 +83,6 @@ public final class RankingPathElementList<V, E> extends AbstractPathElementList<
             if (newPathWeight > yPathElement.getWeight()) {
                 this.pathElements.add(newPathElement);
                 pathAdded = true;
-            } else {
-                break;
             }
         }
 
